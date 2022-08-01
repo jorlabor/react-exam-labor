@@ -38,11 +38,17 @@ export default function Card(props) {
     }
 
     const type = selectDatabase()
-    
+
+    // const toPokeProfile = () => {
+    //     navigate('/pokeProfile', {pokemon, pokemonFirestore})
+    // }
+
+    const handleClick = () => props.toPokeProfile()
+    // console.log(props)
     return (
         
         <Flex padding={1} bgColor='white' basis='100%' direction='column'>
-            <PImage src={props.src} bgColor='#f2f2f2'/>
+            <PImage src={props.src} bgColor='#f2f2f2' onClick={handleClick}/>
             <Flex direction='column'>
                 <PText size='sm' color='#313131'>#{props.id}</PText>
                 <PText size='2xl' textTransform='capitalize'>{props.name}</PText>

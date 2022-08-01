@@ -7,6 +7,8 @@ import Card from '../../components/molecules/Card'
 import { Container,Flex, IconButton, useDisclosure } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
 import AddModal from '../../components/molecules/AddModal'
+import { useNavigate } from 'react-router-dom'
+import Profile from '../Profile'
 
 export default function Home() {
     // axios setup
@@ -14,6 +16,8 @@ export default function Home() {
 
     // firestore collection name
     const col = 'pokemon'
+
+    const navigate = useNavigate()
 
     const colorType = {
         grass : 'lightgreen',
@@ -67,11 +71,10 @@ export default function Home() {
         setPokemonFirestore(pokemons)
     }
 
-    // useEffect(()=>{
-    //     console.log('Entered')
-    //     getPokemonFirestore()
-    // },[pokemonFirestore])
-    
+    const toPokeProfile = () => {
+        debugger
+        navigate('/pokeProfile', {state: {pokemon, pokemonFirestore}})
+    }
     // Useeffect to get pokemon data at the first of the render
     useEffect(() => {
         getAllPokemon()
@@ -80,6 +83,7 @@ export default function Home() {
 
     const pokemonCards = pokemon.map(poke => 
         <Card 
+            poke={poke}
             cardName='pokemonCard'
             key={poke.id} 
             id={poke.id} 
@@ -87,11 +91,13 @@ export default function Home() {
             name={poke.name}
             types={poke.types}
             colorType={colorType}
+            toPokeProfile={toPokeProfile}
         />
     )
 
     const firestoreCards = pokemonFirestore.map(poke => 
         <Card 
+            poke={poke}
             cardName='firestoreCard'
             key={poke.id} 
             id={poke.id} 
@@ -99,9 +105,10 @@ export default function Home() {
             name={poke.pokemonName}
             types={poke.pokemonType}
             colorType={colorType}
+            toPokeProfile={toPokeProfile}
         />
     )
- 
+    
     return (
         <Container padding={5} bgColor='red'>
             <AddModal isOpen={isOpen} onClose={onClose} col={col} pokemonFirestore={pokemonFirestore} setPokemonFirestore={setPokemonFirestore}/>

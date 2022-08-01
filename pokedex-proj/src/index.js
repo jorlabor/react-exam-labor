@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import Home from './pages/Home';
+import Profile from './pages/Profile';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -11,7 +12,10 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <ChakraProvider>
-        <Home />
+				<Routes>
+						<Route path="/" element={<Home />}/>
+						<Route path="/pokeProfile" element={<Profile />}/>
+				</Routes>
       </ChakraProvider>
     </BrowserRouter>
   </React.StrictMode>
